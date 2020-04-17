@@ -87,3 +87,17 @@ LoadScript<-function(activities="activity_labels.txt"){
     CombineTestTrainFinal
 }
 
+## Function to produce the output required in part 5
+
+Part5Output<-function(mydata) {
+    #Group and calculate the mean
+    mymeans<-sapply(split(mydata,mydata$ActivityName), function (x) colMeans(x[2:67]))
+    newmeans<-cbind(rownames(mymeans),mymeans)
+    #Remove row labels
+    rownames(newmeans) <- c()
+    #Add column label
+    colnames(newmeans)[1]<-"Feature"
+    #Write output file
+    write.table(newmeans,"output.txt",row.name=FALSE)
+}
+
